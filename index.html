@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="author" content="Jean Loui Bernard Silva de Jesus"/>
+		<script src="cube.js"></script>
+		<script src="main.js"></script>
+		<title>PI calculator by collisions</title>
+	</head>
+	<body align="center">
+		<canvas id="canvas" width="1280" height="500" style="background: #000;"></canvas>
+
+		<script>
+			const context = document.getElementById("canvas").getContext("2d");
+			const weight = parseFloat(window.prompt("Insira o peso do maior corpo:"));
+
+			const cube1 = new Cube(1, 0, 50, 50);
+			const cube2 = new Cube(weight, -0.82, 150, 100, 50);
+
+			startAnimation(context, cube1, cube2);
+		</script>
+	</body>
+</html>
