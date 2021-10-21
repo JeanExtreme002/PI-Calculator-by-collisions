@@ -12,7 +12,7 @@
 
 		<script>
 			const context = document.getElementById("canvas").getContext("2d");
-			const digits = parseFloat(window.prompt("PI Digits:")) - 1;
+			const digits = parseFloat(window.prompt("Number of digits:")) - 1;
 			const timeSteps = Math.pow(10, digits - 1);
 
 			const block1 = new Block(1, 0, 25, 10);

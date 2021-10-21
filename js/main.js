@@ -10,7 +10,7 @@ function drawData(context, block1, block2) {
 	context.fillStyle = "#fff";
 	context.font = "20px Arial";
 
-	const pi = "PI Digits: " + block1.collisionCount;
+	const pi = "Digits of PI: " + block1.collisionCount;
 	const v1 = "V1: " + block1.velocity.toFixed(2);
 	const v2 = "V2: " + block2.velocity.toFixed(2);
 
