@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8"/>
-		<meta name="author" content="Jean Loui Bernard Silva de Jesus"/>
-		<script src="block.js"></script>
-		<script src="main.js"></script>
-		<title>PI calculator by collisions</title>
-	</head>
-	<body align="center">
-		<canvas id="canvas" width="1280" height="500" style="background: #000;"></canvas>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="author" content="Jean Loui Bernard Silva de Jesus"/>
+        <script src="block.js"></script>
+        <script src="main.js"></script>
+        <title>PI calculator by collisions</title>
+    </head>
+    <body align="center">
+        <canvas id="canvas" width="1280" height="500" style="background: #000;"></canvas>
 
-		<script>
-			const context = document.getElementById("canvas").getContext("2d");
-			const digits = parseFloat(window.prompt("Number of digits:")) - 1;
-			const timeSteps = Math.pow(10, digits - 1);
+        <script>
+            const context = document.getElementById("canvas").getContext("2d");
+            const digits = parseFloat(window.prompt("Number of digits:")) - 1;
+            const timeSteps = Math.pow(10, digits - 1);
 
-			const block1 = new Block(1, 0, 25, 10);
-			const block2 = new Block(Math.pow(100, digits), 1 / timeSteps * -1, 150, 50, 20);
+            const block1 = new Block(1, 0, 25, 10);
+            const block2 = new Block(Math.pow(100, digits), 1 / timeSteps * -1, 150, 50, 20);
 
-			startAnimation(context, block1, block2, timeSteps);
-		</script>
-	</body>
+            startAnimation(context, block1, block2, timeSteps);
+        </script>
+    </body>
 </html>
