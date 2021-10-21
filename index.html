@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta name="author" content="Jean Loui Bernard Silva de Jesus"/>
-		<script src="cube.js"></script>
+		<script src="block.js"></script>
 		<script src="main.js"></script>
 		<title>PI calculator by collisions</title>
 	</head>
@@ -12,12 +12,13 @@
 
 		<script>
 			const context = document.getElementById("canvas").getContext("2d");
-			const weight = parseFloat(window.prompt("Insira o peso do maior corpo:"));
+			const digits = parseFloat(window.prompt("PI Digits:")) - 1;
+			const timeSteps = Math.pow(10, digits - 1);
 
-			const cube1 = new Cube(1, 0, 50, 50);
-			const cube2 = new Cube(weight, -0.82, 150, 100, 50);
+			const block1 = new Block(1, 0, 25, 10);
+			const block2 = new Block(Math.pow(100, digits), 1 / timeSteps * -1, 150, 50, 20);
 
-			startAnimation(context, cube1, cube2);
+			startAnimation(context, block1, block2, timeSteps);
 		</script>
 	</body>
 </html>

@@ -1,42 +1,56 @@
-function drawObjects(context, cube1, cube2) {
-	context.font = "20px Arial";
-
+function drawObjects(context, block1, block2) {
 	context.fillStyle = "#f00";
-	context.fillText(cube2.velocity.toFixed(2), cube2.position, 350);
-	context.fillRect(cube2.position, context.canvas.height - cube2.size, cube2.size, cube2.size);
+	context.fillRect(block2.position, context.canvas.height - block2.size, block2.size, block2.size);
 
 	context.fillStyle = "#00f";
-	context.fillText(cube1.velocity.toFixed(2), cube1.position, 400);
-	context.fillRect(cube1.position, context.canvas.height - cube1.size, cube1.size, cube1.size);
+	context.fillRect(block1.position, context.canvas.height - block1.size, block1.size, block1.size);
 }
 
-function drawCollisionCount(context, count) {
+function drawData(context, block1, block2) {
 	context.fillStyle = "#fff";
-	context.font = "30px Arial";
-	context.fillText(count, 50, 50);
+	context.font = "20px Arial";
+
+	const pi = "PI Digits: " + block1.collisionCount;
+	const v1 = "V1: " + block1.velocity.toFixed(2);
+	const v2 = "V2: " + block2.velocity.toFixed(2);
+
+	context.fillText(`${pi}      |      ${v1}      ${v2}`, 50, 50);
 }
 
-function startAnimation(context, cube1, cube2) {
-	updateScreen(context, cube1, cube2)
-	requestAnimationFrame(() => {startAnimation(context, cube1, cube2)});
+function startAnimation(context, block1, block2, timeSteps) {
+	for (let i = 0; i < timeSteps; i++) {
+		move(block1, block2);
+		updateScreen(context, block1, block2);
+	}
+	requestAnimationFrame(() => {startAnimation(context, block1, block2, timeSteps)});
 }
 
-function updateScreen(context, cube1, cube2) {
-	cube1.move();
-	cube2.move();
+function move(block1, block2) {
+	block1.move();
+	block2.move();
 
-	if (cube1.position + cube1.size >= cube2.position) {
-		cube1.position = cube2.position - cube1.size;
-
-		const v1 = Cube.calculateNextVelocity(cube1, cube2);
-		const v2 = Cube.calculateNextVelocity(cube2, cube1);
-
-		cube1.velocity = v1;
-		cube2.velocity = v2;
-		cube1.collisionCount += 1;
+	// Se o bloco colidiu com a parede, seu sentido é invertido.
+	if (block1.position <= 0) {
+		block1.position = 0;
+		block1.velocity *= -1;
+		block1.collisionCount += 1;
 	}
 
+	// Se o bloco colidir com o outro bloco, suas novas velocidades serão calculadas.
+	if (block1.position + block1.size >= block2.position) {
+		block1.position = block2.position - block1.size;
+
+		const v1 = Block.calculateNextVelocity(block1, block2);
+		const v2 = Block.calculateNextVelocity(block2, block1);
+
+		block1.velocity = v1;
+		block2.velocity = v2;
+		block1.collisionCount += 1;
+	}
+}
+
+function updateScreen(context, block1, block2) {
 	context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-	drawCollisionCount(context, cube1.collisionCount);
-	drawObjects(context, cube1, cube2);
+	drawData(context, block1, block2);
+	drawObjects(context, block1, block2);
 }
